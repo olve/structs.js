@@ -1,0 +1,88 @@
+struct.js
+=========
+
+A Javascript data type for creating bytearrays
+
+Usage
+-----
+
+```javascript
+var bottle = new Struct();
+
+//push another struct as a member of our bottle-struct (struct.push returns the pushed member, so it can be manipulated)
+var label = bottle.push(new Struct());
+
+//push an array of unsigned 8bit integers as a new member
+var content = bottle.push("B", [119, 0x41, 116, 101, 114]);
+
+//push a string as a new member. the string is converted to charcodes as pushed as an array of unsigned 8bit integers.
+label.push("c", "WATER"); 
+
+//structs have some getter-methods defined:
+//all the bytes as an array
+var bytes = bottle.array; //[87, 65, 84, 69, 82,  119, 0x41, 116, 101, 114]
+
+//all the bytes as a string
+var text = bottle.string; //WATERwAter
+
+//the byteLength of the struct, (the length of Struct.array)
+var length = bottle.byteLength; //10
+
+//set byte 1 of the bottle's content to be a char of value "a" (to replace the "A", (0x41) that was pushed above)
+content.set("c", 1, "a"); 
+console.log(bottle.string); //WATERwater
+
+//write a long at offset 1 of the label's bytearray with value 0
+label.set("L", 1, 0); 
+console.log(bottle.array); //[87, 0, 0, 0, 0,  119, 97, 116, 101, 114]
+
+//create a blob from our struct.
+var buffer = new ArrayBuffer(bottle.byteLength);
+new Uint8Array(buffer).set(bottle.array);
+var blob = new Blob([buffer], {type: "plain/text"});
+```
+
+Format characters
+-----------------
+
+struct.js uses format characters like the [Python struct module](https://docs.python.org/2/library/struct.html#format-characters) to define types of values.
+```javascript
+var struct = new Struct();
+struct.push("B", 3);	//push an unsigned byte with value 3
+struct.push("l", 300)	//push a signed long with value 300
+struct.push("c", "a")	//push the charcode of "a"
+``` 
+
+character | size | type
+----------|------|------
+    c     |   1  | char (string)
+    b     |   1  | signed char
+    B     |   1  | unsigned char
+    ?     |   1  | bool
+    h     |   2  | signed short
+    H     |   2  | unsigned short
+    l     |   4  | signed long
+    L     |   4  | unsigned long
+    f     |   4  | float
+    d     |   8  | double float
+
+Types are defined in Struct.prototype.TYPES
+
+Reading and writing at offsets
+-------------------------------
+When one pushes a new member that is not a struct, a getter and setter for reading and writing specific offsets of the member's bytearray are bound to the member object.
+
+```javascript
+var struct = new Struct();
+var someBytes = struct.push("B", [65, 66, 67, 68]);
+someBytes.get("B", 0)			// read as unsigned chars from offset 0: returns 65
+someBytes.get("H", 0)			// read as unsigned short from offset 0: returns 16706
+someBytes.get("c", 1)			// read as char from offset 1: returns "b"
+someBytes.set("H", 0)			// write unsigned short of value 0 at offset 0
+console.log(someBytes.array)	// [0, 0, 67, 68]
+```
+
+The getter and setter work by applying the prototype-methods of the native DataView type.
+so someBytes.get("H", 0) will apply DataView.prototype.getUint16(0) to a DataView created from the member's bytearray.
+
+the getters and setters are defined in Struct.prototype.createMember, and you can see which DataView.prototype-method is applied by looking up the format-character of your type in Struct.prototype.TYPES.
