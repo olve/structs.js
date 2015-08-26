@@ -11,7 +11,7 @@ var bottle = new Struct();
 
 var label = bottle.push(new Struct());
 var content = bottle.push("B", [119, 0x41, 116, 101, 114]); //push array of unsigned 8bit integers
-label.push("c", "WATER"); //push a string, strings are pushed as arrays of charcodes.
+label.push("c", "WATER"); //push a string, strings are pushed as arrays of uint8 charcodes.
 
 //structs have some getter-methods defined:
 var bytes = bottle.array; //[87, 65, 84, 69, 82,  119, 0x41, 116, 101, 114]
