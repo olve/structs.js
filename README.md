@@ -1,7 +1,7 @@
 struct.js
 =========
 
-A Javascript data type for creating bytearrays
+A Javascript data type for creating and manipulating bytearrays
 
 Usage
 -----
@@ -9,31 +9,20 @@ Usage
 ```javascript
 var bottle = new Struct();
 
-//push another struct as a member of our bottle-struct (struct.push returns the pushed member, so it can be manipulated)
 var label = bottle.push(new Struct());
-
-//push an array of unsigned 8bit integers as a new member
-var content = bottle.push("B", [119, 0x41, 116, 101, 114]);
-
-//push a string as a new member. the string is converted to charcodes as pushed as an array of unsigned 8bit integers.
-label.push("c", "WATER"); 
+var content = bottle.push("B", [119, 0x41, 116, 101, 114]); //push array of unsigned 8bit integers
+label.push("c", "WATER"); //push a string, strings are pushed as arrays of charcodes.
 
 //structs have some getter-methods defined:
-//all the bytes as an array
 var bytes = bottle.array; //[87, 65, 84, 69, 82,  119, 0x41, 116, 101, 114]
-
-//all the bytes as a string
 var text = bottle.string; //WATERwAter
-
-//the byteLength of the struct, (the length of Struct.array)
 var length = bottle.byteLength; //10
 
-//set byte 1 of the bottle's content to be a char of value "a" (to replace the "A", (0x41) that was pushed above)
+//set the byte at offset 1 of the bottle's content to be a char of value "a"
 content.set("c", 1, "a"); 
 console.log(bottle.string); //WATERwater
 
-//write a long at offset 1 of the label's bytearray with value 0
-label.set("L", 1, 0); 
+label.set("L", 1, 0); //write a long with value 0 at offset 1 of the label
 console.log(bottle.array); //[87, 0, 0, 0, 0,  119, 97, 116, 101, 114]
 
 //create a blob from our struct.
