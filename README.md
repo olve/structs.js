@@ -17,6 +17,7 @@ label.push("c", "WATER"); //push a string, strings are pushed as arrays of uint8
 var bytes = bottle.array; //[87, 65, 84, 69, 82,  119, 0x41, 116, 101, 114]
 var text = bottle.string; //WATERwAter
 var length = bottle.byteLength; //10
+var buffer = bottle.buffer; //ArrayBuffer {}
 
 //set the byte at offset 1 of the bottle's content to be a char of value "a"
 content.set("c", 1, "a"); 
@@ -26,9 +27,7 @@ label.set("L", 1, 0); //write a long with value 0 at offset 1 of the label
 console.log(bottle.array); //[87, 0, 0, 0, 0,  119, 97, 116, 101, 114]
 
 //create a blob from our struct.
-var buffer = new ArrayBuffer(bottle.byteLength);
-new Uint8Array(buffer).set(bottle.array);
-var blob = new Blob([buffer], {type: "plain/text"});
+var blob = new Blob([bottle.buffer], {type: "plain/text"});
 ```
 
 Format characters
