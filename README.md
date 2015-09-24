@@ -23,7 +23,7 @@ var buffer = bottle.buffer; //ArrayBuffer {}
 content.set("c", 1, "a"); 
 console.log(bottle.string); //WATERwater
 
-label.set("L", 1, 0); //write a long with value 0 at offset 1 of the label
+label.set("L", 1, 0); //write an unsigned long with value 0 at offset 1 of the label
 console.log(bottle.array); //[87, 0, 0, 0, 0,  119, 97, 116, 101, 114]
 
 //create a blob from our struct.
