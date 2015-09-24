@@ -66,8 +66,8 @@ var someBytes = struct.push("B", [65, 66, 67, 68]);
 someBytes.get("B", 0)			// read as unsigned chars from offset 0: returns 65
 someBytes.get("H", 0)			// read as unsigned short from offset 0: returns 16706
 someBytes.get("c", 1)			// read as char from offset 1: returns "b"
-someBytes.set("H", 0)			// write unsigned short of value 0 at offset 0
-console.log(someBytes.array)	// [0, 0, 67, 68]
+someBytes.set("H", 0, 5)			// write unsigned short of value 5 at offset 0
+console.log(someBytes.array)	// [0, 5, 67, 68]
 ```
 
 The getter and setter work by applying the prototype-methods of the native DataView type.
