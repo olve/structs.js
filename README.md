@@ -74,3 +74,5 @@ The getter and setter work by applying the prototype-methods of the native DataV
 so someBytes.get("H", 0) will apply DataView.prototype.getUint16(0) to a DataView created from the member's bytearray.
 
 the getters and setters are defined in Struct.prototype.createMember, and you can see which DataView.prototype-method is applied by looking up the format-character of your type in Struct.prototype.TYPES.
+
+Struct.prototype.get and Struct.prototype.set do the same thing as a member's getters and setters, however the changes are applied to the total array of the Struct
