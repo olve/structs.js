@@ -4,6 +4,7 @@ var Struct = function() {
 
 	var array;
 	var string;
+	var buffer;
 	var byteLength;
 
 	Object.defineProperty(this, "array", {
@@ -32,8 +33,26 @@ var Struct = function() {
 			}
 			return output;
 		},
-	})
-
+	});
+	Object.defineProperty(this, "buffer", {
+		get: function() {
+			var array = this.array; //we only want to run the generator once, so we store the value here.
+			var output = new ArrayBuffer(array.length);
+			new Uint8Array(output).set(array);
+			return output;
+		},
+	});
+};
+Struct.prototype.get = function(chr, offset) {
+	return this.TYPES[chr].get.apply(new DataView(this.buffer), offset);
+};
+Struct.prototype.set = function(chr, offset, value) {
+	this.members.forEach(function(member) {
+		var mo = member.offset; //member.offset is a generator, and we don't want to run the generator more than once.
+		if (offset >= mo && offset <= mo+member.byteLength) {
+			member.set(chr, offset, value);
+		}
+	});
 };
 Struct.prototype.createMember = function(chr, array) {
 
