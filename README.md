@@ -62,13 +62,13 @@ When one pushes a new member, a getter and setter for reading and writing as the
 
 ```javascript
 var struct = new Struct();
-var someBytes = struct.push("B", [65, 66, 67, 68]);
-someBytes.get("B", 0)			// read as unsigned chars from offset 0: --> 65
-someBytes.get("H", 0)			// read as unsigned short from offset 0: --> 16706
-someBytes.get("c", 1)			// read as char from offset 1: --> "B"
+var bytes = struct.push("B", [65, 66, 67, 68]);
+bytes.get("B", 0)			// read as unsigned chars from offset 0: --> 65
+bytes.get("H", 0)			// read as unsigned short from offset 0: --> 16706
+bytes.get("c", 1)			// read as char from offset 1: --> "B"
 
-someBytes.set("H", 0, 5)		// write unsigned short of value 5 at offset 0
-console.log(someBytes.array)	// --> [0, 5, 67, 68]
+bytes.set("H", 0, 5)		// write unsigned short of value 5 at offset 0
+console.log(bytes.array)	// --> [0, 5, 67, 68]
 ```
 
 The getter and setter work by applying the prototype-methods of the native DataView type.
