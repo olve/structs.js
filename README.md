@@ -58,7 +58,7 @@ Types are defined in Struct.prototype.TYPES
 
 Reading and writing at offsets
 -------------------------------
-When one pushes a new member that is not a struct, a getter and setter for reading and writing specific offsets of the member's bytearray are bound to the member object.
+When one pushes a new member, a getter and setter for reading and writing specific offsets of the member's bytearray are bound to the member object.
 
 ```javascript
 var struct = new Struct();
