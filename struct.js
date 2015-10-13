@@ -43,10 +43,12 @@ var Struct = function() {
 		},
 	});
 };
-Struct.prototype.get = function(chr, offset) {
-	return this.TYPES[chr].get.apply(new DataView(this.buffer), offset);
+Struct.prototype.get = function(chr, offset, littleEndian) {
+	/*	apply DataView prototype method (getUInt8, getInt16, etc) to the Struct's array */
+	return this.TYPES[chr].get.apply(new DataView(this.buffer), [offset, littleEndian]);
 };
 Struct.prototype.set = function(chr, offset, value) {
+	/* apply DataView prototype method (setUInt8, setInt16, etc) to the Struct's array */
 	this.members.forEach(function(member) {
 		var mo = member.offset; //member.offset is a generator, and we don't want to run the generator more than once.
 		if (offset >= mo && offset <= mo+member.byteLength) {
@@ -84,7 +86,7 @@ Struct.prototype.createMember = function(chr, array) {
 			member.set("L", 0, 0) //would write a 0 Long at offset 0, (DataView.prototype.setUint32(0, 0)):
 			[0, 0, 0, 0]
 	*/
-	member.get = function(chr, offset) {return types[chr].get.apply(new DataView(member.buffer), [offset])};
+	member.get = function(chr, offset, littleEndian) {return types[chr].get.apply(new DataView(member.buffer), [offset, littleEndian])};
 	member.set = function(chr, offset, value) {
 		types[chr].set.apply(new DataView(member.buffer), [offset, value]);
 		member.array = Array.prototype.slice.call(new Uint8Array(member.buffer));
