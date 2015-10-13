@@ -65,6 +65,7 @@ var struct = new Struct();
 var bytes = struct.push("B", [65, 66, 67, 68]);
 bytes.get("B", 0)			// read as unsigned chars from offset 0: --> 65
 bytes.get("H", 0)			// read as unsigned short from offset 0: --> 16706
+bytes.get("H", 0, true)     // read as little endian unsigned short from offset 0: --> 16961
 bytes.get("c", 1)			// read as char from offset 1: --> "B"
 
 bytes.set("H", 0, 5)		// write unsigned short of value 5 at offset 0
