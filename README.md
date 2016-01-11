@@ -3,7 +3,7 @@ struct.js
 
 A Javascript data type for creating and manipulating bytearrays
 
-Usage
+Example usage
 -----
 
 ```javascript
