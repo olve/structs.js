@@ -1,5 +1,5 @@
 {
-  "name": "structsjs",
+  "name": "structs.js",
   "version": "1.0.0",
   "description": "A javascript data type for creating and manipulating bytearrays",
   "main": "structs.js",
