@@ -1,25 +1,26 @@
 {
-  "name": "struct.js",
+  "name": "structsjs",
   "version": "1.0.0",
   "description": "A javascript data type for creating and manipulating bytearrays",
-  "main": "struct.js",
+  "main": "structs.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/olve/struct.js.git"
+    "url": "git+https://github.com/olve/structs.js.git"
   },
   "keywords": [
     "javascript",
     "struct",
+    "structs",
     "bytearray",
     "byte"
   ],
   "author": "olve",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/olve/struct.js/issues"
+    "url": "https://github.com/olve/structs.js/issues"
   },
-  "homepage": "https://github.com/olve/struct.js#readme"
+  "homepage": "https://github.com/olve/structs.js#readme"
 }
