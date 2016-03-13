@@ -1,4 +1,4 @@
-struct.js
+structs.js
 =========
 
 A Javascript data type for creating and manipulating bytearrays
