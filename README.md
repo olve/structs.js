@@ -30,6 +30,25 @@ console.log(bottle.array); //[87, 0, 0, 0, 0,  119, 97, 116, 101, 114]
 var blob = new Blob([bottle.buffer], {type: "plain/text"});
 ```
 
+Endians
+-------
+struct.push and struct.get take a third boolean argument: littleEndian
+
+```
+//big endian
+var struct = new Struct();
+struct.push("H", 10000);
+console.log(struct.array); // --> [39, 16]
+
+//little endian
+var struct = new Struct();
+struct.push("H", 10000, true);
+console.log(struct.array); // --> [16, 39]
+console.log(struct.get("H", 0)); // --> 4135
+console.log(struct.get("H", 0, true)); // --> 10000
+```
+
+
 Format characters
 -----------------
 
