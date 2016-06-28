@@ -7,6 +7,8 @@ Example usage
 -----
 
 ```javascript
+import Struct from 'structs.js'
+
 var bottle = new Struct();
 
 var label = bottle.push(new Struct());
