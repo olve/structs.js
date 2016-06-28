@@ -252,3 +252,5 @@ Struct.prototype.TYPES = {
 		view: Float64Array,
 	},
 };
+
+module.exports = Struct;
