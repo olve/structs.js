@@ -112,7 +112,7 @@ Struct.prototype.push = function(chr, values, littleEndian) {
 			- an array of integers (bytes)
 		returns the new member.
 	*/
-	
+
 	var member;
 
 	if (chr instanceof Struct) {
@@ -139,13 +139,14 @@ Struct.prototype.push = function(chr, values, littleEndian) {
 	}
 
 /*	define getter for the offset of the first byte of this member in the Struct.
-	We can't set it as the current byteLength, because structs (which can be pushed as members) have variable length, as 
+	We can't set it as the current byteLength, because structs (which can be pushed as members) have variable length, as
 	they can have new members pushed to themselves. */
 
 	var self = this;
 	var index = this.members.length;
 
 	Object.defineProperty(member, "offset", {
+		configurable: true,
 		get: function() {
 			var offset = 0;
 			for (var i = 0; i < index; i++) {
